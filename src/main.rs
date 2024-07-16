@@ -81,7 +81,7 @@ fn mutate(l: &Vec<Vec<f32>>) -> Vec<Vec<f32>> {
 fn window_conf() -> Conf {
     Conf {
         window_resizable: false,
-        window_title: "Template".to_string(),
+        window_title: "Genetic Algorithm".to_string(),
         ..Default::default()
     }
 }
