@@ -4,16 +4,16 @@ use std::time::Instant;
 use std::time::Duration;
 use std::{thread, time};
 
-const ten_millis: Duration = time::Duration::from_millis(100);
+const TEN_MILLIS: Duration = time::Duration::from_millis(10);
 
 const M_T: i32 = 300;
-const OBJ_C: usize = 10;
+const OBJ_C: usize = 50;
 
 #[macroquad::main(window_conf)]
 async fn main() {
     let background = Color::from_hex(0x0f0f0f);
     let target = vec![screen_width()/2.0, 100.0];
-    let mut obj = vec![screen_width()/2.0,screen_height()-100.0];
+    let obj = vec![screen_width()/2.0,screen_height()-100.0];
     let mut objs = vec![obj.clone(); OBJ_C];
     let mut pos = vec![vec![]; OBJ_C];
     for l in pos.iter_mut() {
@@ -32,7 +32,7 @@ async fn main() {
         for o in objs.iter_mut() {
             o[0] += pos[index][f][0];
             o[1] += pos[index][f][1];
-            draw_rectangle(o[0], o[1], 10.0, 50.0, GREEN);
+            draw_rectangle(o[0], o[1], 10.0, 10.0, GREEN);
             index += 1;
         }
         f += 1;
@@ -57,8 +57,8 @@ async fn main() {
             f = 0;
             gen += 1;
         }
-        // thread::sleep(ten_millis);
-        let fps = (1000.0/(now.elapsed().as_millis() as f32)) as i32;
+        thread::sleep(TEN_MILLIS);
+        let fps = (1000/now.elapsed().as_millis());
         draw_text(&(fps.to_string() + "fps"), 20.0, 20.0, 30.0, WHITE);
         draw_text(&(gen.to_string() + " gens"), 20.0, 60.0, 30.0, WHITE);
         next_frame().await
